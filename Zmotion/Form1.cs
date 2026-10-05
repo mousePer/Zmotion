@@ -139,6 +139,8 @@ namespace Zmotion
         //启动轴运动
         private void uiButton3_Click(object sender, EventArgs e)
         {
+            //设置轴参数
+            AxisParametersModel axisParametersModel = GetAxisParameters();
             //搜集复选框中选中的轴
             Dictionary<int , float> axisMotionDic = new Dictionary<int , float>();
             foreach (Control control in uiGroupBox1.Controls)
@@ -162,16 +164,29 @@ namespace Zmotion
                 float.TryParse(groupBox4.Controls["txb_" + axisNum].Text, out float axisDistance);
                 axisMotionDic.Add(axisNum, axisDistance);
             }
+            AppResultHelper<bool> appResultHelper;
             //判断是相对运动还是绝对运动
             if (rb_RelativeMotion.Checked)
             {
-                AppResultHelper<bool> appResultHelper = parentMotion.RelativeMotion(axisMotionDic);
+                appResultHelper = parentMotion.RelativeMotion(axisParametersModel,axisMotionDic);
             }
             else
             {
-                AppResultHelper<bool> appResultHelper = parentMotion.AbsoluteMotion(axisMotionDic);
+                appResultHelper = parentMotion.AbsoluteMotion(axisParametersModel,axisMotionDic);
             }
-
+            if (!appResultHelper.isSuccessful)
+            {
+                this.ShowErrorTip(appResultHelper.message);
+            }
+        }
+        //停止轴运动
+        private void uiButton4_Click(object sender, EventArgs e)
+        {
+            AppResultHelper<bool> appResultHelper = parentMotion.StopMotion();
+            if (!appResultHelper.isSuccessful)
+            {
+                this.ShowErrorTip(appResultHelper.message);
+            }
         }
     }
 }

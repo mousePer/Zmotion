@@ -804,6 +804,7 @@
             this.uiButton4.TabIndex = 2;
             this.uiButton4.Text = "停止";
             this.uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton4.Click += new System.EventHandler(this.uiButton4_Click);
             // 
             // uiButton3
             // 

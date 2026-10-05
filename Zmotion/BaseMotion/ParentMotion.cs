@@ -69,13 +69,25 @@ namespace Zmotion.BaseMotion
         /// </summary>
         /// <param name="axisMotionDic">轴号与相应距离的字典</param>
         /// <returns></returns>
-        public abstract AppResultHelper<bool> RelativeMotion(Dictionary<int, float> axisMotionDic);
+        public abstract AppResultHelper<bool> RelativeMotion(AxisParametersModel axisParametersModel,Dictionary<int, float> axisMotionDic);
         /// <summary>
         /// 轴绝对运动
         /// </summary>
         /// <param name="axisMotionDic">轴号与相应距离的字典</param>
         /// <returns></returns>
-        public abstract AppResultHelper<bool> AbsoluteMotion(Dictionary<int, float> axisMotionDic);
+        public abstract AppResultHelper<bool> AbsoluteMotion(AxisParametersModel axisParametersModel,Dictionary<int, float> axisMotionDic);
+        /// <summary>
+        /// 轴运动状态  
+        /// </summary>
+        /// <param name="iaxis">轴号</param>
+        /// <returns>正在运行为flase  停止行为true</returns>
+        public abstract AppResultHelper<bool> IsMotion(int iaxis);
+        /// <summary>
+        /// 停止所有轴运动
+        /// </summary>
+        /// <returns></returns>
+        public abstract AppResultHelper<bool> StopMotion();
+
         
     }
 }

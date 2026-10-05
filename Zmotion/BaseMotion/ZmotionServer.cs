@@ -17,8 +17,8 @@ namespace Zmotion.BaseMotion
         /// 网口连接句柄
         /// </summary>
         private IntPtr g_handle;
-        public bool isConnect = false;
-        //public bool isConnect => !string.IsNullOrEmpty(g_handle.ToString());
+        //public bool isConnect = false;
+        public bool isConnect => !string.IsNullOrEmpty(g_handle.ToString());
         private List<int> codeList = new List<int>();
         /// <summary>
         /// 连续运动
@@ -34,6 +34,12 @@ namespace Zmotion.BaseMotion
             }
             else
             {
+                //轴手动运动前，关闭所有轴运动
+                AppResultHelper<bool> appResultHelper = this.StopMotion();
+                if (!appResultHelper.isSuccessful)
+                {
+                    return appResultHelper;
+                }
                 functional = functional.Trim();
                 if (string.IsNullOrEmpty(functional))
                 {
@@ -54,10 +60,7 @@ namespace Zmotion.BaseMotion
                 {
                     SetAxisParameters(axisParametersModel, iaxis);
                     int result = zmcaux.ZAux_Direct_Single_Vmove(g_handle, iaxis, direction);
-                    if (result != 0) {
-                        return AppResultHelper<bool>.Fail(result);
-                    }
-                    return AppResultHelper<bool>.Success();
+                    return AppResultHelper<bool>.ResultValidation(result);
                 }
                 catch (Exception ex)
                 {
@@ -83,7 +86,7 @@ namespace Zmotion.BaseMotion
             {
                 return AppResultHelper<bool>.Fail(result);
             }
-            isConnect = true;
+            //isConnect = true;
             return AppResultHelper<bool>.Success();
           }
 
@@ -292,13 +295,22 @@ namespace Zmotion.BaseMotion
         /// </summary>
         /// <param name="axisMotionDic">轴与相应距离的字典</param>
         /// <returns></returns>
-        public override AppResultHelper<bool> RelativeMotion(Dictionary<int, float> axisMotionDic)
+        public override AppResultHelper<bool> RelativeMotion(AxisParametersModel axisParametersModel, Dictionary<int, float> axisMotionDic)
         {
+            if (!isConnect)
+            {
+                return AppResultHelper<bool>.Fail("请先连接网口");
+            }
             List<int> axisKeyList = axisMotionDic.Keys.ToList();
             List<int> resultList = new List<int>();
             foreach (int iaxis in axisKeyList)
             {
-                //TODO 在窗体层必须设置参数传递过来
+                //判断轴是否正在运动
+                AppResultHelper<bool> isMotionResult = IsMotion(iaxis);
+                if (!isMotionResult.isSuccessful)
+                {
+                    return AppResultHelper<bool>.Fail(isMotionResult.message);
+                }
                 //设置轴参数
                 SetAxisParameters(AxisParameters, iaxis);
                 //轴相对运动，并将轴的结果添加到列表中
@@ -311,19 +323,65 @@ namespace Zmotion.BaseMotion
         /// </summary>
         /// <param name="axisMotionDic">轴与相应距离的字典</param>
         /// <returns></returns>
-        public override AppResultHelper<bool> AbsoluteMotion(Dictionary<int, float> axisMotionDic)
+        public override AppResultHelper<bool> AbsoluteMotion(AxisParametersModel axisParametersModel, Dictionary<int, float> axisMotionDic)
         {
+            if (!isConnect)
+            {
+                return AppResultHelper<bool>.Fail("请先连接网口");
+            }
             List<int> axisKeyList = axisMotionDic.Keys.ToList();
             List<int> resultList = new List<int>();
             foreach (int iaxis in axisKeyList)
             {
-                //TODO 在窗体层必须设置参数传递过来
+                //判断轴是否正在运动
+                AppResultHelper<bool> isMotionResult = IsMotion(iaxis);
+                if (!isMotionResult.isSuccessful)
+                {
+                    return AppResultHelper<bool>.Fail(isMotionResult.message);
+                }
                 //设置轴参数
                 SetAxisParameters(AxisParameters, iaxis);
                 //轴相对运动，并将轴的结果添加到列表中
                 resultList.Add(zmcaux.ZAux_Direct_Single_MoveAbs(g_handle, iaxis, axisMotionDic[iaxis]));
             }
             return AppResultHelper<bool>.ResultValidation(resultList);
+        }
+        /// <summary>
+        /// 轴运动状态  
+        /// </summary>
+        /// <param name="iaxis">轴号</param>
+        /// <returns>正在运行为flase  停止行为true</returns>
+        public override AppResultHelper<bool> IsMotion(int iaxis)
+        {
+            if (!isConnect)
+            {
+                return AppResultHelper<bool>.Fail("请先连接网口");
+            }
+            int runstate = -1;
+            //获取当太时轴运行状态，
+            int result = zmcaux.ZAux_Direct_GetIfIdle(g_handle, iaxis, ref runstate);
+            if(result != 0)
+            {
+                return AppResultHelper<bool>.Fail("获取轴运行状态失败");
+            }
+            if (runstate == -1)
+            {
+                return AppResultHelper<bool>.Fail("轴正在运行");
+            }
+            return AppResultHelper<bool>.Success();
+        }
+        /// <summary>
+        /// 停止轴运动
+        /// </summary>
+        /// <returns></returns>
+        public override AppResultHelper<bool> StopMotion()
+        {
+            if (!isConnect)
+            {
+                return AppResultHelper<bool>.Fail("请先连接网口");
+            }
+            int result = zmcaux.ZAux_Direct_Rapidstop(g_handle, 2);
+            return AppResultHelper<bool>.ResultValidation(result);
         }
     }
 }
