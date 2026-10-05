@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,5 +64,18 @@ namespace Zmotion.BaseMotion
         /// <param name="iaxis"></param>
         /// <returns></returns>
         public abstract AppResultHelper<AxisCurrentParameterModel> GetAxisCurrentParameter(int iaxis);
+        /// <summary>
+        /// 轴相对运动
+        /// </summary>
+        /// <param name="axisMotionDic">轴号与相应距离的字典</param>
+        /// <returns></returns>
+        public abstract AppResultHelper<bool> RelativeMotion(Dictionary<int, float> axisMotionDic);
+        /// <summary>
+        /// 轴绝对运动
+        /// </summary>
+        /// <param name="axisMotionDic">轴号与相应距离的字典</param>
+        /// <returns></returns>
+        public abstract AppResultHelper<bool> AbsoluteMotion(Dictionary<int, float> axisMotionDic);
+        
     }
 }

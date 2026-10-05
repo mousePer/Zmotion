@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Zmotion.help
 {
+    /// <summary>
+    /// 错误码帮助类
+    /// </summary>
     public static class ErrorCodeHelper
     {
         public static Dictionary<int, string> ErrorCodeDic;
@@ -17,6 +20,12 @@ namespace Zmotion.help
             //读取Debug中的错误码文件
             ErrorCodeDic = new Dictionary<int, string>();
             string path = AppDomain.CurrentDomain.BaseDirectory + "ErrorCode.txt";
+            //如果文件不存在则创建该文件
+            if (!File.Exists(path))
+            {
+                //创建错误码文件
+                File.Create(path);
+            }
             IEnumerable<string> enumerable = File.ReadLines(path);
             List<string> ErrorCodeLineList = enumerable
                 .Select(line => line.Trim())                 // 去除每一行的前后空格

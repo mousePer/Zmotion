@@ -19,7 +19,8 @@ namespace Zmotion
 
     {
         ParentMotion parentMotion;
-        int[] iaxis = { 0, 1, 3 };
+        List<int> iaxis = new List<int>() { 0,1,3};
+        
         public Form1()
         {
             InitializeComponent();
@@ -31,6 +32,9 @@ namespace Zmotion
             ErrorCodeHelper.GetErrorCodeDicWithFile();
 
         }
+        
+
+
         //连接
         private void uiButton1_Click(object sender, EventArgs e)
         {
@@ -74,7 +78,10 @@ namespace Zmotion
             Button button = sender as Button;
             AppResultHelper<bool> appResultHelper = parentMotion.StopMotion(button.Tag.ToString());
         }
-
+        /// <summary>
+        /// 设置轴参数
+        /// </summary>
+        /// <returns></returns>
         private AxisParametersModel GetAxisParameters()   
         {
             AxisParametersModel axisParametersModel = new AxisParametersModel();
@@ -114,7 +121,7 @@ namespace Zmotion
                 }
             }
             //读取轴参数
-            for (int i=0; i< iaxis.Length; i++)
+            for (int i=0; i< iaxis.Count; i++)
             {
                 AppResultHelper<AxisCurrentParameterModel> appResultHelper = parentMotion.GetAxisCurrentParameter(iaxis[i]);
                 if (!appResultHelper.isSuccessful)
@@ -126,6 +133,43 @@ namespace Zmotion
                 //显示轴参数
                 statusStrip1.Items["ts_Location_"+i].Text = axisCurrent.AxisCurrentPosition.ToString();
                 statusStrip1.Items["ts_Speed_"+i].Text = axisCurrent.AxisCurrentSpeed.ToString();
+            }
+
+        }
+        //启动轴运动
+        private void uiButton3_Click(object sender, EventArgs e)
+        {
+            //搜集复选框中选中的轴
+            Dictionary<int , float> axisMotionDic = new Dictionary<int , float>();
+            foreach (Control control in uiGroupBox1.Controls)
+            {
+                //若不是复选框则跳过，若复选框没有选中则跳过,若复选框标记为空则跳过
+                if(!(control is CheckBox)|| !(control as CheckBox).Checked)
+                {
+                    continue;
+                }
+                if( control.Tag == null)
+                {
+                    this.ShowErrorTip("轴号获取失败");
+                }
+                //提起出控件标记出来的轴号和距离存入字典
+                int axisNum = int.Parse(control.Tag.ToString());
+                if(!float.TryParse(groupBox4.Controls["txb_" + axisNum].Text, out float result))
+                {
+                    this.ShowErrorTip("请输入正确的距离");
+                    return;
+                }
+                float.TryParse(groupBox4.Controls["txb_" + axisNum].Text, out float axisDistance);
+                axisMotionDic.Add(axisNum, axisDistance);
+            }
+            //判断是相对运动还是绝对运动
+            if (rb_RelativeMotion.Checked)
+            {
+                AppResultHelper<bool> appResultHelper = parentMotion.RelativeMotion(axisMotionDic);
+            }
+            else
+            {
+                AppResultHelper<bool> appResultHelper = parentMotion.AbsoluteMotion(axisMotionDic);
             }
 
         }

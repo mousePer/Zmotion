@@ -91,6 +91,20 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.uiGroupBox2 = new Sunny.UI.UIGroupBox();
+            this.uiGroupBox4 = new Sunny.UI.UIGroupBox();
+            this.uiButton5 = new Sunny.UI.UIButton();
+            this.uiButton4 = new Sunny.UI.UIButton();
+            this.uiButton3 = new Sunny.UI.UIButton();
+            this.txb_3 = new Sunny.UI.UITextBox();
+            this.txb_1 = new Sunny.UI.UITextBox();
+            this.txb_0 = new Sunny.UI.UITextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.uiGroupBox3 = new Sunny.UI.UIGroupBox();
+            this.rb_AbsoluteMotion = new Sunny.UI.UIRadioButton();
+            this.rb_RelativeMotion = new Sunny.UI.UIRadioButton();
             this.uiPanel1.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -105,6 +119,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.Yzheng_1_8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Xyuan_0_13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Xzheng_0_11)).BeginInit();
+            this.uiGroupBox2.SuspendLayout();
+            this.uiGroupBox4.SuspendLayout();
+            this.uiGroupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiPanel1
@@ -119,9 +136,9 @@
             this.uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel1.Name = "uiPanel1";
-            this.uiPanel1.Size = new System.Drawing.Size(1042, 83);
+            this.uiPanel1.Size = new System.Drawing.Size(1020, 83);
             this.uiPanel1.TabIndex = 0;
-            this.uiPanel1.Text = null;
+            this.uiPanel1.Text = "  ";
             this.uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // uiGroupBox1
@@ -130,7 +147,7 @@
             this.uiGroupBox1.Controls.Add(this.uiCheckBox2);
             this.uiGroupBox1.Controls.Add(this.uiCheckBox1);
             this.uiGroupBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiGroupBox1.Location = new System.Drawing.Point(657, 0);
+            this.uiGroupBox1.Location = new System.Drawing.Point(635, 0);
             this.uiGroupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox1.Name = "uiGroupBox1";
@@ -150,6 +167,7 @@
             this.uiCheckBox3.Name = "uiCheckBox3";
             this.uiCheckBox3.Size = new System.Drawing.Size(61, 29);
             this.uiCheckBox3.TabIndex = 0;
+            this.uiCheckBox3.Tag = "3";
             this.uiCheckBox3.Text = "Z轴";
             // 
             // uiCheckBox2
@@ -162,6 +180,7 @@
             this.uiCheckBox2.Name = "uiCheckBox2";
             this.uiCheckBox2.Size = new System.Drawing.Size(61, 29);
             this.uiCheckBox2.TabIndex = 0;
+            this.uiCheckBox2.Tag = "1";
             this.uiCheckBox2.Text = "Y轴";
             // 
             // uiCheckBox1
@@ -174,6 +193,7 @@
             this.uiCheckBox1.Name = "uiCheckBox1";
             this.uiCheckBox1.Size = new System.Drawing.Size(61, 29);
             this.uiCheckBox1.TabIndex = 0;
+            this.uiCheckBox1.Tag = "0";
             this.uiCheckBox1.Text = "X轴";
             // 
             // uiButton2
@@ -457,9 +477,9 @@
             this.ts_Speed_1,
             this.toolStripStatusLabel13,
             this.ts_Speed_2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 635);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 675);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1050, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1028, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -579,7 +599,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(4, 382);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(588, 250);
+            this.groupBox1.Size = new System.Drawing.Size(588, 290);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "信息监控";
@@ -724,10 +744,197 @@
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // uiGroupBox2
+            // 
+            this.uiGroupBox2.Controls.Add(this.uiGroupBox4);
+            this.uiGroupBox2.Controls.Add(this.uiGroupBox3);
+            this.uiGroupBox2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiGroupBox2.Location = new System.Drawing.Point(639, 133);
+            this.uiGroupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox2.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox2.Name = "uiGroupBox2";
+            this.uiGroupBox2.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox2.Size = new System.Drawing.Size(385, 537);
+            this.uiGroupBox2.TabIndex = 8;
+            this.uiGroupBox2.Text = "多轴控制";
+            this.uiGroupBox2.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiGroupBox4
+            // 
+            this.uiGroupBox4.Controls.Add(this.uiButton5);
+            this.uiGroupBox4.Controls.Add(this.uiButton4);
+            this.uiGroupBox4.Controls.Add(this.uiButton3);
+            this.uiGroupBox4.Controls.Add(this.txb_3);
+            this.uiGroupBox4.Controls.Add(this.txb_1);
+            this.uiGroupBox4.Controls.Add(this.txb_0);
+            this.uiGroupBox4.Controls.Add(this.label15);
+            this.uiGroupBox4.Controls.Add(this.label14);
+            this.uiGroupBox4.Controls.Add(this.label13);
+            this.uiGroupBox4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiGroupBox4.Location = new System.Drawing.Point(4, 126);
+            this.uiGroupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox4.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox4.Name = "uiGroupBox4";
+            this.uiGroupBox4.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox4.Size = new System.Drawing.Size(385, 413);
+            this.uiGroupBox4.TabIndex = 1;
+            this.uiGroupBox4.Text = "控制设置";
+            this.uiGroupBox4.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiButton5
+            // 
+            this.uiButton5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton5.Location = new System.Drawing.Point(268, 168);
+            this.uiButton5.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton5.Name = "uiButton5";
+            this.uiButton5.Size = new System.Drawing.Size(100, 35);
+            this.uiButton5.TabIndex = 2;
+            this.uiButton5.Text = "直线插补";
+            this.uiButton5.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            // 
+            // uiButton4
+            // 
+            this.uiButton4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton4.Location = new System.Drawing.Point(140, 168);
+            this.uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton4.Name = "uiButton4";
+            this.uiButton4.Size = new System.Drawing.Size(100, 35);
+            this.uiButton4.TabIndex = 2;
+            this.uiButton4.Text = "停止";
+            this.uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            // 
+            // uiButton3
+            // 
+            this.uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton3.Location = new System.Drawing.Point(8, 168);
+            this.uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton3.Name = "uiButton3";
+            this.uiButton3.Size = new System.Drawing.Size(100, 35);
+            this.uiButton3.TabIndex = 2;
+            this.uiButton3.Text = "启动";
+            this.uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton3.Click += new System.EventHandler(this.uiButton3_Click);
+            // 
+            // txb_3
+            // 
+            this.txb_3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txb_3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txb_3.Location = new System.Drawing.Point(129, 121);
+            this.txb_3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txb_3.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txb_3.Name = "txb_3";
+            this.txb_3.Padding = new System.Windows.Forms.Padding(5);
+            this.txb_3.RectColor = System.Drawing.Color.Silver;
+            this.txb_3.ShowText = false;
+            this.txb_3.Size = new System.Drawing.Size(193, 29);
+            this.txb_3.TabIndex = 1;
+            this.txb_3.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txb_3.Watermark = "";
+            // 
+            // txb_1
+            // 
+            this.txb_1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txb_1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txb_1.Location = new System.Drawing.Point(129, 82);
+            this.txb_1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txb_1.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txb_1.Name = "txb_1";
+            this.txb_1.Padding = new System.Windows.Forms.Padding(5);
+            this.txb_1.RectColor = System.Drawing.Color.Silver;
+            this.txb_1.ShowText = false;
+            this.txb_1.Size = new System.Drawing.Size(193, 29);
+            this.txb_1.TabIndex = 1;
+            this.txb_1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txb_1.Watermark = "";
+            // 
+            // txb_0
+            // 
+            this.txb_0.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txb_0.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txb_0.Location = new System.Drawing.Point(129, 43);
+            this.txb_0.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txb_0.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txb_0.Name = "txb_0";
+            this.txb_0.Padding = new System.Windows.Forms.Padding(5);
+            this.txb_0.RectColor = System.Drawing.Color.Silver;
+            this.txb_0.ShowText = false;
+            this.txb_0.Size = new System.Drawing.Size(193, 29);
+            this.txb_0.TabIndex = 1;
+            this.txb_0.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txb_0.Watermark = "";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(21, 128);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(87, 16);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Z 轴距离：";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(21, 89);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(87, 16);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "Y 轴距离：";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(21, 49);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(87, 16);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "X 轴距离：";
+            // 
+            // uiGroupBox3
+            // 
+            this.uiGroupBox3.Controls.Add(this.rb_AbsoluteMotion);
+            this.uiGroupBox3.Controls.Add(this.rb_RelativeMotion);
+            this.uiGroupBox3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiGroupBox3.Location = new System.Drawing.Point(4, 37);
+            this.uiGroupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox3.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox3.Name = "uiGroupBox3";
+            this.uiGroupBox3.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox3.Size = new System.Drawing.Size(385, 79);
+            this.uiGroupBox3.TabIndex = 0;
+            this.uiGroupBox3.Text = "轴运动模式";
+            this.uiGroupBox3.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // rb_AbsoluteMotion
+            // 
+            this.rb_AbsoluteMotion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rb_AbsoluteMotion.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rb_AbsoluteMotion.Location = new System.Drawing.Point(241, 35);
+            this.rb_AbsoluteMotion.MinimumSize = new System.Drawing.Size(1, 1);
+            this.rb_AbsoluteMotion.Name = "rb_AbsoluteMotion";
+            this.rb_AbsoluteMotion.Size = new System.Drawing.Size(98, 29);
+            this.rb_AbsoluteMotion.TabIndex = 0;
+            this.rb_AbsoluteMotion.Text = "绝对";
+            // 
+            // rb_RelativeMotion
+            // 
+            this.rb_RelativeMotion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rb_RelativeMotion.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rb_RelativeMotion.Location = new System.Drawing.Point(62, 35);
+            this.rb_RelativeMotion.MinimumSize = new System.Drawing.Size(1, 1);
+            this.rb_RelativeMotion.Name = "rb_RelativeMotion";
+            this.rb_RelativeMotion.Size = new System.Drawing.Size(150, 29);
+            this.rb_RelativeMotion.TabIndex = 0;
+            this.rb_RelativeMotion.Text = "相对";
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1050, 657);
+            this.ClientSize = new System.Drawing.Size(1028, 697);
+            this.Controls.Add(this.uiGroupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button6);
@@ -758,6 +965,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.Yzheng_1_8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Xyuan_0_13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Xzheng_0_11)).EndInit();
+            this.uiGroupBox2.ResumeLayout(false);
+            this.uiGroupBox4.ResumeLayout(false);
+            this.uiGroupBox4.PerformLayout();
+            this.uiGroupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -827,6 +1038,20 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel13;
         private System.Windows.Forms.ToolStripStatusLabel ts_Speed_2;
         private System.Windows.Forms.Timer timer1;
+        private Sunny.UI.UIGroupBox uiGroupBox2;
+        private Sunny.UI.UIGroupBox uiGroupBox3;
+        private Sunny.UI.UIGroupBox uiGroupBox4;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private Sunny.UI.UIRadioButton rb_AbsoluteMotion;
+        private Sunny.UI.UIRadioButton rb_RelativeMotion;
+        private Sunny.UI.UIButton uiButton5;
+        private Sunny.UI.UIButton uiButton4;
+        private Sunny.UI.UIButton uiButton3;
+        private Sunny.UI.UITextBox txb_3;
+        private Sunny.UI.UITextBox txb_1;
+        private Sunny.UI.UITextBox txb_0;
     }
 }
 

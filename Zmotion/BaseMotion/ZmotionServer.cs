@@ -18,6 +18,7 @@ namespace Zmotion.BaseMotion
         /// </summary>
         private IntPtr g_handle;
         public bool isConnect = false;
+        //public bool isConnect => !string.IsNullOrEmpty(g_handle.ToString());
         private List<int> codeList = new List<int>();
         /// <summary>
         /// 连续运动
@@ -65,7 +66,7 @@ namespace Zmotion.BaseMotion
 
             }
         }
-
+  
         /// <summary>
         /// 连接网口
         /// </summary>
@@ -84,7 +85,7 @@ namespace Zmotion.BaseMotion
             }
             isConnect = true;
             return AppResultHelper<bool>.Success();
-        }
+          }
 
         /// <summary>
         /// 获取所有网口 IP
@@ -94,6 +95,7 @@ namespace Zmotion.BaseMotion
         {
             StringBuilder ipaddrlist = new StringBuilder();
             int result = 0;
+            // 最多尝试 5 次(预防网口偶尔搜索不到)
             for (int searchTimes = 1; searchTimes <= 5; searchTimes++)
             {
                 result = zmcaux.ZAux_SearchEthlist(ipaddrlist, 1024, 1000);
@@ -108,7 +110,6 @@ namespace Zmotion.BaseMotion
                             .Split(' ')
                             .ToList();
                     }
-
                     // 单个 IP
                     return new List<string> { ipStr };
                 }
@@ -267,7 +268,7 @@ namespace Zmotion.BaseMotion
         /// <param name="iaxis"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override AppResultHelper<AxisCurrentParameterModel> GetAxisCurrentParameter(int iaxis)
+        public override AppResultHelper<AxisCurrentParameterModel>  GetAxisCurrentParameter(int iaxis)
         {
             //读取轴的速度和位置
             float curpos = 0;
@@ -285,6 +286,44 @@ namespace Zmotion.BaseMotion
             };
             //验证结果
             return AppResultHelper<AxisCurrentParameterModel>.ResultValidation(codeList, axisCurrentParameterModel);
+        }
+        /// <summary>
+        /// 轴相对运动
+        /// </summary>
+        /// <param name="axisMotionDic">轴与相应距离的字典</param>
+        /// <returns></returns>
+        public override AppResultHelper<bool> RelativeMotion(Dictionary<int, float> axisMotionDic)
+        {
+            List<int> axisKeyList = axisMotionDic.Keys.ToList();
+            List<int> resultList = new List<int>();
+            foreach (int iaxis in axisKeyList)
+            {
+                //TODO 在窗体层必须设置参数传递过来
+                //设置轴参数
+                SetAxisParameters(AxisParameters, iaxis);
+                //轴相对运动，并将轴的结果添加到列表中
+                resultList.Add(zmcaux.ZAux_Direct_Single_Move(g_handle, iaxis, axisMotionDic[iaxis]));
+            }
+            return AppResultHelper<bool>.ResultValidation(resultList);
+        }
+        /// <summary>
+        /// 轴绝对运动
+        /// </summary>
+        /// <param name="axisMotionDic">轴与相应距离的字典</param>
+        /// <returns></returns>
+        public override AppResultHelper<bool> AbsoluteMotion(Dictionary<int, float> axisMotionDic)
+        {
+            List<int> axisKeyList = axisMotionDic.Keys.ToList();
+            List<int> resultList = new List<int>();
+            foreach (int iaxis in axisKeyList)
+            {
+                //TODO 在窗体层必须设置参数传递过来
+                //设置轴参数
+                SetAxisParameters(AxisParameters, iaxis);
+                //轴相对运动，并将轴的结果添加到列表中
+                resultList.Add(zmcaux.ZAux_Direct_Single_MoveAbs(g_handle, iaxis, axisMotionDic[iaxis]));
+            }
+            return AppResultHelper<bool>.ResultValidation(resultList);
         }
     }
 }

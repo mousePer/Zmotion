@@ -32,5 +32,6 @@ namespace Zmotion.model
         /// 脉冲当量
         /// </summary>
         public float units { get; set; }
+
     }
 }

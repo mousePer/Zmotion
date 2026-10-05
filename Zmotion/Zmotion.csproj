@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="BaseMotion\ParentMotion.cs" />
     <Compile Include="BaseMotion\ZmotionServer.cs" />
+    <Compile Include="enum\AxisNumberEnum.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +65,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="help\AppResultHelper.cs" />
+    <Compile Include="help\AxisConfig.cs" />
     <Compile Include="help\ErrorCodeHelper.cs" />
     <Compile Include="model\AxisCurrentParameterModel.cs" />
     <Compile Include="model\AxisParametersModel.cs" />
