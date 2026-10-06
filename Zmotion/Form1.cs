@@ -19,7 +19,7 @@ namespace Zmotion
 
     {
         ParentMotion parentMotion;
-        List<int> iaxis = new List<int>() { 0,1,3};
+        List<int> iaxis = new List<int>() { 1,3,0};
         
         public Form1()
         {
@@ -33,7 +33,6 @@ namespace Zmotion
 
         }
         
-
 
         //连接
         private void uiButton1_Click(object sender, EventArgs e)
@@ -133,6 +132,8 @@ namespace Zmotion
                 //显示轴参数
                 statusStrip1.Items["ts_Location_"+i].Text = axisCurrent.AxisCurrentPosition.ToString();
                 statusStrip1.Items["ts_Speed_"+i].Text = axisCurrent.AxisCurrentSpeed.ToString();
+                //TODO:编写控制器连接状态变化
+
             }
 
         }
@@ -146,7 +147,7 @@ namespace Zmotion
             foreach (Control control in uiGroupBox1.Controls)
             {
                 //若不是复选框则跳过，若复选框没有选中则跳过,若复选框标记为空则跳过
-                if(!(control is CheckBox)|| !(control as CheckBox).Checked)
+                if(!(control is UICheckBox)|| !(control as UICheckBox).Checked)
                 {
                     continue;
                 }
@@ -156,12 +157,12 @@ namespace Zmotion
                 }
                 //提起出控件标记出来的轴号和距离存入字典
                 int axisNum = int.Parse(control.Tag.ToString());
-                if(!float.TryParse(groupBox4.Controls["txb_" + axisNum].Text, out float result))
+                if(!float.TryParse(uiGroupBox4.Controls["txb_" + axisNum].Text, out float axisDistance))
                 {
                     this.ShowErrorTip("请输入正确的距离");
                     return;
                 }
-                float.TryParse(groupBox4.Controls["txb_" + axisNum].Text, out float axisDistance);
+                //float.TryParse(uiGroupBox4.Controls["txb_" + axisNum].Text, out float axisDistance);
                 axisMotionDic.Add(axisNum, axisDistance);
             }
             AppResultHelper<bool> appResultHelper;
@@ -183,6 +184,15 @@ namespace Zmotion
         private void uiButton4_Click(object sender, EventArgs e)
         {
             AppResultHelper<bool> appResultHelper = parentMotion.StopMotion();
+            if (!appResultHelper.isSuccessful)
+            {
+                this.ShowErrorTip(appResultHelper.message);
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            AppResultHelper<bool> appResultHelper = parentMotion.Test();
             if (!appResultHelper.isSuccessful)
             {
                 this.ShowErrorTip(appResultHelper.message);

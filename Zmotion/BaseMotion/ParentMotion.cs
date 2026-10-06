@@ -88,6 +88,8 @@ namespace Zmotion.BaseMotion
         /// <returns></returns>
         public abstract AppResultHelper<bool> StopMotion();
 
+        public abstract AppResultHelper<bool> Test();
+
         
     }
 }

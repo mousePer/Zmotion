@@ -284,6 +284,7 @@ namespace Zmotion.BaseMotion
             //将轴参数（坐标，速度）封装成模型
             AxisCurrentParameterModel axisCurrentParameterModel = new AxisCurrentParameterModel()
             {
+                isConnect = isConnect,
                 AxisCurrentPosition = curpos,
                 AxisCurrentSpeed = curspeed
             };
@@ -312,9 +313,10 @@ namespace Zmotion.BaseMotion
                     return AppResultHelper<bool>.Fail(isMotionResult.message);
                 }
                 //设置轴参数
-                SetAxisParameters(AxisParameters, iaxis);
+                SetAxisParameters(axisParametersModel, iaxis);
                 //轴相对运动，并将轴的结果添加到列表中
-                resultList.Add(zmcaux.ZAux_Direct_Single_Move(g_handle, iaxis, axisMotionDic[iaxis]));
+                float v = axisMotionDic[iaxis];
+                resultList.Add(zmcaux.ZAux_Direct_Single_Move(g_handle, iaxis, v));
             }
             return AppResultHelper<bool>.ResultValidation(resultList);
         }
@@ -340,7 +342,7 @@ namespace Zmotion.BaseMotion
                     return AppResultHelper<bool>.Fail(isMotionResult.message);
                 }
                 //设置轴参数
-                SetAxisParameters(AxisParameters, iaxis);
+                SetAxisParameters(axisParametersModel, iaxis);
                 //轴相对运动，并将轴的结果添加到列表中
                 resultList.Add(zmcaux.ZAux_Direct_Single_MoveAbs(g_handle, iaxis, axisMotionDic[iaxis]));
             }
@@ -364,7 +366,7 @@ namespace Zmotion.BaseMotion
             {
                 return AppResultHelper<bool>.Fail("获取轴运行状态失败");
             }
-            if (runstate == -1)
+            if (runstate == 0)
             {
                 return AppResultHelper<bool>.Fail("轴正在运行");
             }
@@ -381,6 +383,12 @@ namespace Zmotion.BaseMotion
                 return AppResultHelper<bool>.Fail("请先连接网口");
             }
             int result = zmcaux.ZAux_Direct_Rapidstop(g_handle, 2);
+            return AppResultHelper<bool>.ResultValidation(result);
+        }
+
+        public override AppResultHelper<bool> Test()
+        {
+            int result = zmcaux.ZAux_Direct_Single_Move(g_handle, 3, 1000);
             return AppResultHelper<bool>.ResultValidation(result);
         }
     }

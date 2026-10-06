@@ -75,15 +75,15 @@
             this.toolStripStatusLabel13 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ts_Speed_2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Zfu_3_2 = new System.Windows.Forms.PictureBox();
-            this.Zyuan_3_1 = new System.Windows.Forms.PictureBox();
-            this.Yfu_1_10 = new System.Windows.Forms.PictureBox();
-            this.Yyuan_1_9 = new System.Windows.Forms.PictureBox();
-            this.Zzheng_3_0 = new System.Windows.Forms.PictureBox();
-            this.Xfu_0_12 = new System.Windows.Forms.PictureBox();
-            this.Yzheng_1_8 = new System.Windows.Forms.PictureBox();
-            this.Xyuan_0_13 = new System.Windows.Forms.PictureBox();
-            this.Xzheng_0_11 = new System.Windows.Forms.PictureBox();
+            this.Zfu_0_2 = new System.Windows.Forms.PictureBox();
+            this.Zyuan_0_1 = new System.Windows.Forms.PictureBox();
+            this.Yfu_3_10 = new System.Windows.Forms.PictureBox();
+            this.Yyuan_3_9 = new System.Windows.Forms.PictureBox();
+            this.Zzheng_0_0 = new System.Windows.Forms.PictureBox();
+            this.Xfu_1_12 = new System.Windows.Forms.PictureBox();
+            this.Yzheng_3_8 = new System.Windows.Forms.PictureBox();
+            this.Xyuan_1_13 = new System.Windows.Forms.PictureBox();
+            this.Xzheng_1_11 = new System.Windows.Forms.PictureBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -96,29 +96,30 @@
             this.uiButton5 = new Sunny.UI.UIButton();
             this.uiButton4 = new Sunny.UI.UIButton();
             this.uiButton3 = new Sunny.UI.UIButton();
+            this.txb_0 = new Sunny.UI.UITextBox();
             this.txb_3 = new Sunny.UI.UITextBox();
             this.txb_1 = new Sunny.UI.UITextBox();
-            this.txb_0 = new Sunny.UI.UITextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.uiGroupBox3 = new Sunny.UI.UIGroupBox();
             this.rb_AbsoluteMotion = new Sunny.UI.UIRadioButton();
             this.rb_RelativeMotion = new Sunny.UI.UIRadioButton();
+            this.button7 = new System.Windows.Forms.Button();
             this.uiPanel1.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Zfu_3_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Zyuan_3_1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Yfu_1_10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Yyuan_1_9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Zzheng_3_0)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Xfu_0_12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Yzheng_1_8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Xyuan_0_13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Xzheng_0_11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Zfu_0_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Zyuan_0_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Yfu_3_10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Yyuan_3_9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Zzheng_0_0)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Xfu_1_12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Yzheng_3_8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Xyuan_1_13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Xzheng_1_11)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
             this.uiGroupBox4.SuspendLayout();
             this.uiGroupBox3.SuspendLayout();
@@ -167,7 +168,7 @@
             this.uiCheckBox3.Name = "uiCheckBox3";
             this.uiCheckBox3.Size = new System.Drawing.Size(61, 29);
             this.uiCheckBox3.TabIndex = 0;
-            this.uiCheckBox3.Tag = "3";
+            this.uiCheckBox3.Tag = "0";
             this.uiCheckBox3.Text = "Z轴";
             // 
             // uiCheckBox2
@@ -180,7 +181,7 @@
             this.uiCheckBox2.Name = "uiCheckBox2";
             this.uiCheckBox2.Size = new System.Drawing.Size(61, 29);
             this.uiCheckBox2.TabIndex = 0;
-            this.uiCheckBox2.Tag = "1";
+            this.uiCheckBox2.Tag = "3";
             this.uiCheckBox2.Text = "Y轴";
             // 
             // uiCheckBox1
@@ -193,7 +194,7 @@
             this.uiCheckBox1.Name = "uiCheckBox1";
             this.uiCheckBox1.Size = new System.Drawing.Size(61, 29);
             this.uiCheckBox1.TabIndex = 0;
-            this.uiCheckBox1.Tag = "0";
+            this.uiCheckBox1.Tag = "1";
             this.uiCheckBox1.Text = "X轴";
             // 
             // uiButton2
@@ -382,7 +383,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(74, 57);
             this.button1.TabIndex = 5;
-            this.button1.Tag = "1,1";
+            this.button1.Tag = "3,-1";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button6_MouseDown);
             this.button1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button6_MouseUp);
@@ -396,7 +397,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(74, 57);
             this.button2.TabIndex = 5;
-            this.button2.Tag = "0,1";
+            this.button2.Tag = "1,-1";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button6_MouseDown);
             this.button2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button6_MouseUp);
@@ -410,7 +411,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(74, 57);
             this.button3.TabIndex = 5;
-            this.button3.Tag = "1,-1";
+            this.button3.Tag = "3,1";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button6_MouseDown);
             this.button3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button6_MouseUp);
@@ -424,7 +425,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(74, 57);
             this.button4.TabIndex = 5;
-            this.button4.Tag = "0,-1";
+            this.button4.Tag = "1,1";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button6_MouseDown);
             this.button4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button6_MouseUp);
@@ -438,7 +439,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(74, 57);
             this.button5.TabIndex = 5;
-            this.button5.Tag = "2,-1";
+            this.button5.Tag = "0,1";
             this.button5.UseVisualStyleBackColor = false;
             this.button5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button6_MouseDown);
             this.button5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button6_MouseUp);
@@ -452,7 +453,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(74, 57);
             this.button6.TabIndex = 5;
-            this.button6.Tag = "2,1";
+            this.button6.Tag = "0,-1";
             this.button6.Text = "  ";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button6_MouseDown);
@@ -582,15 +583,15 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.Zfu_3_2);
-            this.groupBox1.Controls.Add(this.Zyuan_3_1);
-            this.groupBox1.Controls.Add(this.Yfu_1_10);
-            this.groupBox1.Controls.Add(this.Yyuan_1_9);
-            this.groupBox1.Controls.Add(this.Zzheng_3_0);
-            this.groupBox1.Controls.Add(this.Xfu_0_12);
-            this.groupBox1.Controls.Add(this.Yzheng_1_8);
-            this.groupBox1.Controls.Add(this.Xyuan_0_13);
-            this.groupBox1.Controls.Add(this.Xzheng_0_11);
+            this.groupBox1.Controls.Add(this.Zfu_0_2);
+            this.groupBox1.Controls.Add(this.Zyuan_0_1);
+            this.groupBox1.Controls.Add(this.Yfu_3_10);
+            this.groupBox1.Controls.Add(this.Yyuan_3_9);
+            this.groupBox1.Controls.Add(this.Zzheng_0_0);
+            this.groupBox1.Controls.Add(this.Xfu_1_12);
+            this.groupBox1.Controls.Add(this.Yzheng_3_8);
+            this.groupBox1.Controls.Add(this.Xyuan_1_13);
+            this.groupBox1.Controls.Add(this.Xzheng_1_11);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label9);
@@ -604,86 +605,86 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "信息监控";
             // 
-            // Zfu_3_2
+            // Zfu_0_2
             // 
-            this.Zfu_3_2.BackColor = System.Drawing.Color.Red;
-            this.Zfu_3_2.Location = new System.Drawing.Point(416, 200);
-            this.Zfu_3_2.Name = "Zfu_3_2";
-            this.Zfu_3_2.Size = new System.Drawing.Size(100, 27);
-            this.Zfu_3_2.TabIndex = 1;
-            this.Zfu_3_2.TabStop = false;
+            this.Zfu_0_2.BackColor = System.Drawing.Color.Red;
+            this.Zfu_0_2.Location = new System.Drawing.Point(416, 200);
+            this.Zfu_0_2.Name = "Zfu_0_2";
+            this.Zfu_0_2.Size = new System.Drawing.Size(100, 27);
+            this.Zfu_0_2.TabIndex = 1;
+            this.Zfu_0_2.TabStop = false;
             // 
-            // Zyuan_3_1
+            // Zyuan_0_1
             // 
-            this.Zyuan_3_1.BackColor = System.Drawing.Color.Red;
-            this.Zyuan_3_1.Location = new System.Drawing.Point(282, 200);
-            this.Zyuan_3_1.Name = "Zyuan_3_1";
-            this.Zyuan_3_1.Size = new System.Drawing.Size(100, 27);
-            this.Zyuan_3_1.TabIndex = 1;
-            this.Zyuan_3_1.TabStop = false;
+            this.Zyuan_0_1.BackColor = System.Drawing.Color.Red;
+            this.Zyuan_0_1.Location = new System.Drawing.Point(282, 200);
+            this.Zyuan_0_1.Name = "Zyuan_0_1";
+            this.Zyuan_0_1.Size = new System.Drawing.Size(100, 27);
+            this.Zyuan_0_1.TabIndex = 1;
+            this.Zyuan_0_1.TabStop = false;
             // 
-            // Yfu_1_10
+            // Yfu_3_10
             // 
-            this.Yfu_1_10.BackColor = System.Drawing.Color.Red;
-            this.Yfu_1_10.Location = new System.Drawing.Point(416, 143);
-            this.Yfu_1_10.Name = "Yfu_1_10";
-            this.Yfu_1_10.Size = new System.Drawing.Size(100, 27);
-            this.Yfu_1_10.TabIndex = 1;
-            this.Yfu_1_10.TabStop = false;
+            this.Yfu_3_10.BackColor = System.Drawing.Color.Red;
+            this.Yfu_3_10.Location = new System.Drawing.Point(416, 143);
+            this.Yfu_3_10.Name = "Yfu_3_10";
+            this.Yfu_3_10.Size = new System.Drawing.Size(100, 27);
+            this.Yfu_3_10.TabIndex = 1;
+            this.Yfu_3_10.TabStop = false;
             // 
-            // Yyuan_1_9
+            // Yyuan_3_9
             // 
-            this.Yyuan_1_9.BackColor = System.Drawing.Color.Red;
-            this.Yyuan_1_9.Location = new System.Drawing.Point(282, 143);
-            this.Yyuan_1_9.Name = "Yyuan_1_9";
-            this.Yyuan_1_9.Size = new System.Drawing.Size(100, 27);
-            this.Yyuan_1_9.TabIndex = 1;
-            this.Yyuan_1_9.TabStop = false;
+            this.Yyuan_3_9.BackColor = System.Drawing.Color.Red;
+            this.Yyuan_3_9.Location = new System.Drawing.Point(282, 143);
+            this.Yyuan_3_9.Name = "Yyuan_3_9";
+            this.Yyuan_3_9.Size = new System.Drawing.Size(100, 27);
+            this.Yyuan_3_9.TabIndex = 1;
+            this.Yyuan_3_9.TabStop = false;
             // 
-            // Zzheng_3_0
+            // Zzheng_0_0
             // 
-            this.Zzheng_3_0.BackColor = System.Drawing.Color.Red;
-            this.Zzheng_3_0.Location = new System.Drawing.Point(149, 200);
-            this.Zzheng_3_0.Name = "Zzheng_3_0";
-            this.Zzheng_3_0.Size = new System.Drawing.Size(100, 27);
-            this.Zzheng_3_0.TabIndex = 1;
-            this.Zzheng_3_0.TabStop = false;
+            this.Zzheng_0_0.BackColor = System.Drawing.Color.Red;
+            this.Zzheng_0_0.Location = new System.Drawing.Point(149, 200);
+            this.Zzheng_0_0.Name = "Zzheng_0_0";
+            this.Zzheng_0_0.Size = new System.Drawing.Size(100, 27);
+            this.Zzheng_0_0.TabIndex = 1;
+            this.Zzheng_0_0.TabStop = false;
             // 
-            // Xfu_0_12
+            // Xfu_1_12
             // 
-            this.Xfu_0_12.BackColor = System.Drawing.Color.Red;
-            this.Xfu_0_12.Location = new System.Drawing.Point(416, 86);
-            this.Xfu_0_12.Name = "Xfu_0_12";
-            this.Xfu_0_12.Size = new System.Drawing.Size(100, 27);
-            this.Xfu_0_12.TabIndex = 1;
-            this.Xfu_0_12.TabStop = false;
+            this.Xfu_1_12.BackColor = System.Drawing.Color.Red;
+            this.Xfu_1_12.Location = new System.Drawing.Point(416, 86);
+            this.Xfu_1_12.Name = "Xfu_1_12";
+            this.Xfu_1_12.Size = new System.Drawing.Size(100, 27);
+            this.Xfu_1_12.TabIndex = 1;
+            this.Xfu_1_12.TabStop = false;
             // 
-            // Yzheng_1_8
+            // Yzheng_3_8
             // 
-            this.Yzheng_1_8.BackColor = System.Drawing.Color.Red;
-            this.Yzheng_1_8.Location = new System.Drawing.Point(149, 143);
-            this.Yzheng_1_8.Name = "Yzheng_1_8";
-            this.Yzheng_1_8.Size = new System.Drawing.Size(100, 27);
-            this.Yzheng_1_8.TabIndex = 1;
-            this.Yzheng_1_8.TabStop = false;
+            this.Yzheng_3_8.BackColor = System.Drawing.Color.Red;
+            this.Yzheng_3_8.Location = new System.Drawing.Point(149, 143);
+            this.Yzheng_3_8.Name = "Yzheng_3_8";
+            this.Yzheng_3_8.Size = new System.Drawing.Size(100, 27);
+            this.Yzheng_3_8.TabIndex = 1;
+            this.Yzheng_3_8.TabStop = false;
             // 
-            // Xyuan_0_13
+            // Xyuan_1_13
             // 
-            this.Xyuan_0_13.BackColor = System.Drawing.Color.Red;
-            this.Xyuan_0_13.Location = new System.Drawing.Point(282, 86);
-            this.Xyuan_0_13.Name = "Xyuan_0_13";
-            this.Xyuan_0_13.Size = new System.Drawing.Size(100, 27);
-            this.Xyuan_0_13.TabIndex = 1;
-            this.Xyuan_0_13.TabStop = false;
+            this.Xyuan_1_13.BackColor = System.Drawing.Color.Red;
+            this.Xyuan_1_13.Location = new System.Drawing.Point(282, 86);
+            this.Xyuan_1_13.Name = "Xyuan_1_13";
+            this.Xyuan_1_13.Size = new System.Drawing.Size(100, 27);
+            this.Xyuan_1_13.TabIndex = 1;
+            this.Xyuan_1_13.TabStop = false;
             // 
-            // Xzheng_0_11
+            // Xzheng_1_11
             // 
-            this.Xzheng_0_11.BackColor = System.Drawing.Color.Red;
-            this.Xzheng_0_11.Location = new System.Drawing.Point(149, 86);
-            this.Xzheng_0_11.Name = "Xzheng_0_11";
-            this.Xzheng_0_11.Size = new System.Drawing.Size(100, 27);
-            this.Xzheng_0_11.TabIndex = 1;
-            this.Xzheng_0_11.TabStop = false;
+            this.Xzheng_1_11.BackColor = System.Drawing.Color.Red;
+            this.Xzheng_1_11.Location = new System.Drawing.Point(149, 86);
+            this.Xzheng_1_11.Name = "Xzheng_1_11";
+            this.Xzheng_1_11.Size = new System.Drawing.Size(100, 27);
+            this.Xzheng_1_11.TabIndex = 1;
+            this.Xzheng_1_11.TabStop = false;
             // 
             // label12
             // 
@@ -761,12 +762,13 @@
             // 
             // uiGroupBox4
             // 
+            this.uiGroupBox4.Controls.Add(this.button7);
             this.uiGroupBox4.Controls.Add(this.uiButton5);
             this.uiGroupBox4.Controls.Add(this.uiButton4);
             this.uiGroupBox4.Controls.Add(this.uiButton3);
+            this.uiGroupBox4.Controls.Add(this.txb_0);
             this.uiGroupBox4.Controls.Add(this.txb_3);
             this.uiGroupBox4.Controls.Add(this.txb_1);
-            this.uiGroupBox4.Controls.Add(this.txb_0);
             this.uiGroupBox4.Controls.Add(this.label15);
             this.uiGroupBox4.Controls.Add(this.label14);
             this.uiGroupBox4.Controls.Add(this.label13);
@@ -819,11 +821,27 @@
             this.uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiButton3.Click += new System.EventHandler(this.uiButton3_Click);
             // 
+            // txb_0
+            // 
+            this.txb_0.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txb_0.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txb_0.Location = new System.Drawing.Point(129, 121);
+            this.txb_0.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txb_0.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txb_0.Name = "txb_0";
+            this.txb_0.Padding = new System.Windows.Forms.Padding(5);
+            this.txb_0.RectColor = System.Drawing.Color.Silver;
+            this.txb_0.ShowText = false;
+            this.txb_0.Size = new System.Drawing.Size(193, 29);
+            this.txb_0.TabIndex = 1;
+            this.txb_0.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txb_0.Watermark = "";
+            // 
             // txb_3
             // 
             this.txb_3.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txb_3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txb_3.Location = new System.Drawing.Point(129, 121);
+            this.txb_3.Location = new System.Drawing.Point(129, 82);
             this.txb_3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txb_3.MinimumSize = new System.Drawing.Size(1, 16);
             this.txb_3.Name = "txb_3";
@@ -839,7 +857,7 @@
             // 
             this.txb_1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txb_1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txb_1.Location = new System.Drawing.Point(129, 82);
+            this.txb_1.Location = new System.Drawing.Point(129, 43);
             this.txb_1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txb_1.MinimumSize = new System.Drawing.Size(1, 16);
             this.txb_1.Name = "txb_1";
@@ -850,22 +868,6 @@
             this.txb_1.TabIndex = 1;
             this.txb_1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txb_1.Watermark = "";
-            // 
-            // txb_0
-            // 
-            this.txb_0.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txb_0.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txb_0.Location = new System.Drawing.Point(129, 43);
-            this.txb_0.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txb_0.MinimumSize = new System.Drawing.Size(1, 16);
-            this.txb_0.Name = "txb_0";
-            this.txb_0.Padding = new System.Windows.Forms.Padding(5);
-            this.txb_0.RectColor = System.Drawing.Color.Silver;
-            this.txb_0.ShowText = false;
-            this.txb_0.Size = new System.Drawing.Size(193, 29);
-            this.txb_0.TabIndex = 1;
-            this.txb_0.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.txb_0.Watermark = "";
             // 
             // label15
             // 
@@ -922,6 +924,7 @@
             // 
             // rb_RelativeMotion
             // 
+            this.rb_RelativeMotion.Checked = true;
             this.rb_RelativeMotion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.rb_RelativeMotion.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rb_RelativeMotion.Location = new System.Drawing.Point(62, 35);
@@ -930,6 +933,16 @@
             this.rb_RelativeMotion.Size = new System.Drawing.Size(150, 29);
             this.rb_RelativeMotion.TabIndex = 0;
             this.rb_RelativeMotion.Text = "相对";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(97, 281);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 3;
+            this.button7.Text = "button7";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // Form1
             // 
@@ -957,15 +970,15 @@
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Zfu_3_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Zyuan_3_1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Yfu_1_10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Yyuan_1_9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Zzheng_3_0)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Xfu_0_12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Yzheng_1_8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Xyuan_0_13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Xzheng_0_11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Zfu_0_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Zyuan_0_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Yfu_3_10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Yyuan_3_9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Zzheng_0_0)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Xfu_1_12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Yzheng_3_8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Xyuan_1_13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Xzheng_1_11)).EndInit();
             this.uiGroupBox2.ResumeLayout(false);
             this.uiGroupBox4.ResumeLayout(false);
             this.uiGroupBox4.PerformLayout();
@@ -1009,15 +1022,15 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.PictureBox Zfu_3_2;
-        private System.Windows.Forms.PictureBox Zyuan_3_1;
-        private System.Windows.Forms.PictureBox Yfu_1_10;
-        private System.Windows.Forms.PictureBox Yyuan_1_9;
-        private System.Windows.Forms.PictureBox Zzheng_3_0;
-        private System.Windows.Forms.PictureBox Xfu_0_12;
-        private System.Windows.Forms.PictureBox Yzheng_1_8;
-        private System.Windows.Forms.PictureBox Xyuan_0_13;
-        private System.Windows.Forms.PictureBox Xzheng_0_11;
+        private System.Windows.Forms.PictureBox Zfu_0_2;
+        private System.Windows.Forms.PictureBox Zyuan_0_1;
+        private System.Windows.Forms.PictureBox Yfu_3_10;
+        private System.Windows.Forms.PictureBox Yyuan_3_9;
+        private System.Windows.Forms.PictureBox Zzheng_0_0;
+        private System.Windows.Forms.PictureBox Xfu_1_12;
+        private System.Windows.Forms.PictureBox Yzheng_3_8;
+        private System.Windows.Forms.PictureBox Xyuan_1_13;
+        private System.Windows.Forms.PictureBox Xzheng_1_11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
@@ -1050,9 +1063,10 @@
         private Sunny.UI.UIButton uiButton5;
         private Sunny.UI.UIButton uiButton4;
         private Sunny.UI.UIButton uiButton3;
+        private Sunny.UI.UITextBox txb_0;
         private Sunny.UI.UITextBox txb_3;
         private Sunny.UI.UITextBox txb_1;
-        private Sunny.UI.UITextBox txb_0;
+        private System.Windows.Forms.Button button7;
     }
 }
 

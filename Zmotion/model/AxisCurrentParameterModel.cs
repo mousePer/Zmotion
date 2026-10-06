@@ -9,6 +9,10 @@ namespace Zmotion.model
     public class AxisCurrentParameterModel
     {
         /// <summary>
+        /// 控制器当前连接状态
+        /// </summary>
+        public bool isConnect { get; set; }
+        /// <summary>
         /// 轴当前位置
         /// </summary>
         public float AxisCurrentPosition { get; set; }
