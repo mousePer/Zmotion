@@ -189,13 +189,54 @@ namespace Zmotion
                 this.ShowErrorTip(appResultHelper.message);
             }
         }
-
+        //测试
         private void button7_Click(object sender, EventArgs e)
         {
             AppResultHelper<bool> appResultHelper = parentMotion.Test();
             if (!appResultHelper.isSuccessful)
             {
                 this.ShowErrorTip(appResultHelper.message);
+            }
+        }
+        //一键回原点
+        private async void uiButton2_Click(object sender, EventArgs e)
+        {
+            //搜集复选框中选中的轴(收集需要回原点的轴)
+            Dictionary<int, float> axisMotionDic = new Dictionary<int, float>();
+            foreach (Control control in uiGroupBox1.Controls)
+            {
+                //若不是复选框则跳过，若复选框没有选中则跳过,若复选框标记为空则跳过
+                if (!(control is UICheckBox) || !(control as UICheckBox).Checked)
+                {
+                    continue;
+                }
+                if (control.Tag == null)
+                {
+                    this.ShowErrorTip("轴号获取失败");
+                }
+                //提起出控件标记出来的轴号和距离存入字典
+                int axisNum = int.Parse(control.Tag.ToString());
+                axisMotionDic.Add(axisNum, -500000);
+            }
+            try
+            {
+                AppResultHelper<bool> appResultHelper = await parentMotion.BackOriginALLAsync(GetAxisParameters(), axisMotionDic, 600000);
+                if (appResultHelper.isSuccessful)
+                {
+                    this.ShowSuccessTip("回原点成功");
+                }else
+                {
+                    this.ShowErrorTip(appResultHelper.message);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.ShowErrorTip(ex.Message);
+            }
+            finally
+            {
+                //最终强制停止运动，防止异常导致运动无法停止
+                parentMotion.StopMotion();
             }
         }
     }

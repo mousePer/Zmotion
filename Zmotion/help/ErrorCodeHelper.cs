@@ -19,7 +19,7 @@ namespace Zmotion.help
         {
             //读取Debug中的错误码文件
             ErrorCodeDic = new Dictionary<int, string>();
-            string path = AppDomain.CurrentDomain.BaseDirectory + "ErrorCode.txt";
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ErrorCode.txt");
             //如果文件不存在则创建该文件
             if (!File.Exists(path))
             {

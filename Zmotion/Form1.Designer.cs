@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.uiPanel1 = new Sunny.UI.UIPanel();
+            this.button7 = new System.Windows.Forms.Button();
             this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
             this.uiCheckBox3 = new Sunny.UI.UICheckBox();
             this.uiCheckBox2 = new Sunny.UI.UICheckBox();
@@ -105,7 +106,6 @@
             this.uiGroupBox3 = new Sunny.UI.UIGroupBox();
             this.rb_AbsoluteMotion = new Sunny.UI.UIRadioButton();
             this.rb_RelativeMotion = new Sunny.UI.UIRadioButton();
-            this.button7 = new System.Windows.Forms.Button();
             this.uiPanel1.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -127,6 +127,7 @@
             // 
             // uiPanel1
             // 
+            this.uiPanel1.Controls.Add(this.button7);
             this.uiPanel1.Controls.Add(this.uiGroupBox1);
             this.uiPanel1.Controls.Add(this.uiButton2);
             this.uiPanel1.Controls.Add(this.uiButton1);
@@ -141,6 +142,16 @@
             this.uiPanel1.TabIndex = 0;
             this.uiPanel1.Text = "  ";
             this.uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(537, 28);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 3;
+            this.button7.Text = "button7";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // uiGroupBox1
             // 
@@ -208,6 +219,7 @@
             this.uiButton2.TabIndex = 2;
             this.uiButton2.Text = "一键回零点";
             this.uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton2.Click += new System.EventHandler(this.uiButton2_Click);
             // 
             // uiButton1
             // 
@@ -762,7 +774,6 @@
             // 
             // uiGroupBox4
             // 
-            this.uiGroupBox4.Controls.Add(this.button7);
             this.uiGroupBox4.Controls.Add(this.uiButton5);
             this.uiGroupBox4.Controls.Add(this.uiButton4);
             this.uiGroupBox4.Controls.Add(this.uiButton3);
@@ -933,16 +944,6 @@
             this.rb_RelativeMotion.Size = new System.Drawing.Size(150, 29);
             this.rb_RelativeMotion.TabIndex = 0;
             this.rb_RelativeMotion.Text = "相对";
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(97, 281);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 3;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // Form1
             // 

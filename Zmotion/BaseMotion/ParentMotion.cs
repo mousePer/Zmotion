@@ -87,8 +87,19 @@ namespace Zmotion.BaseMotion
         /// </summary>
         /// <returns></returns>
         public abstract AppResultHelper<bool> StopMotion();
-
+        /// <summary>
+        /// 测试
+        /// </summary>
+        /// <returns></returns>
         public abstract AppResultHelper<bool> Test();
+        /// <summary>
+        /// 回原点
+        /// </summary>
+        /// <param name="axisParametersModel">轴参数模型</param>
+        /// <param name="axisMotionDic">轴号与相应距离的字典</param>
+        /// <param name="timeOut">超时时间</param>
+        /// <returns></returns>
+        public abstract Task<AppResultHelper<bool>> BackOriginALLAsync(AxisParametersModel axisParametersModel, Dictionary<int, float> axisMotionDic,int timeOut);
 
         
     }

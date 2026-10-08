@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -216,7 +217,7 @@ namespace Zmotion.BaseMotion
                 case 1:
                     return new List<int> { 8, 9, 10 };
                 case 3:
-                    return new List<int> { 0, 1, 2 };
+                    return new List<int> { 0, 1, 2 };  
                 default:
                     return new List<int>();
             }
@@ -310,13 +311,14 @@ namespace Zmotion.BaseMotion
                 AppResultHelper<bool> isMotionResult = IsMotion(iaxis);
                 if (!isMotionResult.isSuccessful)
                 {
+                    //所有轴停止运动
+                    StopMotion();
                     return AppResultHelper<bool>.Fail(isMotionResult.message);
                 }
                 //设置轴参数
                 SetAxisParameters(axisParametersModel, iaxis);
                 //轴相对运动，并将轴的结果添加到列表中
-                float v = axisMotionDic[iaxis];
-                resultList.Add(zmcaux.ZAux_Direct_Single_Move(g_handle, iaxis, v));
+                resultList.Add(zmcaux.ZAux_Direct_Single_Move(g_handle, iaxis, axisMotionDic[iaxis]));
             }
             return AppResultHelper<bool>.ResultValidation(resultList);
         }
@@ -339,6 +341,8 @@ namespace Zmotion.BaseMotion
                 AppResultHelper<bool> isMotionResult = IsMotion(iaxis);
                 if (!isMotionResult.isSuccessful)
                 {
+                    //所有轴停止运动
+                    StopMotion();
                     return AppResultHelper<bool>.Fail(isMotionResult.message);
                 }
                 //设置轴参数
@@ -359,6 +363,7 @@ namespace Zmotion.BaseMotion
             {
                 return AppResultHelper<bool>.Fail("请先连接网口");
             }
+            // 运行状态 -1为停止  0为正在运动
             int runstate = -1;
             //获取当太时轴运行状态，
             int result = zmcaux.ZAux_Direct_GetIfIdle(g_handle, iaxis, ref runstate);
@@ -368,7 +373,7 @@ namespace Zmotion.BaseMotion
             }
             if (runstate == 0)
             {
-                return AppResultHelper<bool>.Fail("轴正在运行");
+                return AppResultHelper<bool>.Fail("轴正在运行");  
             }
             return AppResultHelper<bool>.Success();
         }
@@ -385,11 +390,101 @@ namespace Zmotion.BaseMotion
             int result = zmcaux.ZAux_Direct_Rapidstop(g_handle, 2);
             return AppResultHelper<bool>.ResultValidation(result);
         }
-
+        /// <summary>
+        /// 测试
+        /// </summary>
+        /// <returns></returns>
         public override AppResultHelper<bool> Test()
         {
             int result = zmcaux.ZAux_Direct_Single_Move(g_handle, 3, 1000);
             return AppResultHelper<bool>.ResultValidation(result);
+        }
+        /// <summary>
+        /// 回原点
+        /// </summary>
+        /// <param name="axisParametersModel">轴参数模型</param>
+        /// <param name="axisMotionDic">轴号与相应距离的字典</param>
+        /// <param name="timeOut">超时时间</param>
+        /// <returns></returns>
+        public override async Task<AppResultHelper<bool>> BackOriginALLAsync(AxisParametersModel axisParametersModel, Dictionary<int, float> axisMotionDic, int timeOut)
+        {
+            if (!isConnect)
+            {
+                return AppResultHelper<bool>.Fail("请先连接网口");
+            }
+            
+            //1.统一先去负限位
+            RelativeMotion(axisParametersModel, axisMotionDic);
+            //监控各个轴是否完成移动
+            AppResultHelper<bool> result = await WaitAllStopAsysc(axisMotionDic.Keys.ToList(), timeOut);
+            if (!result.isSuccessful)
+            {
+                return result;
+            }
+            //2.开始正向回原点
+            List<int> resultList = new List<int>();
+            foreach (int iaxis in axisMotionDic.Keys)
+            {
+                 resultList.Add(StartBackOrigin(axisParametersModel, iaxis));
+            }
+            //监控所有轴是否移动完成
+            result = await WaitAllStopAsysc(axisMotionDic.Keys.ToList(), timeOut);
+            if (!result.isSuccessful)
+            {
+                return result;
+            }
+            return AppResultHelper<bool>.ResultValidation(resultList);
+        }
+        /// <summary>
+        /// 启动回原点
+        /// </summary>
+        /// <param name="iaxis">轴号</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private int StartBackOrigin(AxisParametersModel axisParametersModel,int iaxis)
+        {
+            SetAxisParameters(axisParametersModel, iaxis);
+            zmcaux.ZAux_Direct_SetCreep(g_handle, iaxis, 10);
+            return zmcaux.ZAux_Direct_Single_Datum(g_handle, iaxis, 3);
+        }
+
+        /// <summary>
+        /// 等待所有轴停止
+        /// </summary>
+        /// <param name="axisList">轴号列表</param>
+        /// <param name="timeOut">超时时间</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private async Task<AppResultHelper<bool>> WaitAllStopAsysc(List<int> axisList, int timeOut)
+        {
+            DateTime startTime = DateTime.Now;
+            while (true)
+            { 
+                //定义标识符
+                int axisStopCount = 0;
+                foreach (int iaxis in axisList)
+                {
+                    AppResultHelper<bool> result = IsMotion(iaxis);
+                    if (result.isSuccessful)
+                    {
+                        axisStopCount++;
+                    }
+                }
+                //判断所有轴是否停止   (现有的停止轴数量等于轴列表数量)
+                if (axisStopCount == axisList.Count)
+                {
+                    return AppResultHelper<bool>.Success();
+                }
+                //查看是否超时
+                DateTime endTime = DateTime.Now;
+                double totalMilliseconds = endTime.Subtract(startTime).TotalMilliseconds;
+                if (totalMilliseconds > timeOut)
+                {
+                    return AppResultHelper<bool>.Fail("等待超时");
+                }
+                //等待100毫秒
+                await Task.Delay(100);
+            }
         }
     }
 }
