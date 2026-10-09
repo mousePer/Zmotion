@@ -100,7 +100,21 @@ namespace Zmotion.BaseMotion
         /// <param name="timeOut">超时时间</param>
         /// <returns></returns>
         public abstract Task<AppResultHelper<bool>> BackOriginALLAsync(AxisParametersModel axisParametersModel, Dictionary<int, float> axisMotionDic,int timeOut);
+        /// <summary>
+        /// 直线插补
+        /// </summary>
+        /// <param name="axisParametersModel">轴参数模型</param>
+        /// <param name="axisMotionDic">轴号与相应距离的字典</param>
+        /// <returns></returns>
+        public abstract AppResultHelper<bool> AbsLine(AxisParametersModel axisParametersModel, Dictionary<int, float> axisMotionDic);
+        /// <summary>
+        /// 圆弧插补
+        /// </summary>
+        /// <param name="axisParametersModel">轴参数模型</param>
+        /// <param name="axisMotionDic">轴号与相应距离的字典</param>
+        /// <param name="middleList">中间点坐标</param>
+        /// <returns></returns>
+        public abstract AppResultHelper<bool> AbsCircle(AxisParametersModel axisParametersModel, Dictionary<int, float> axisMotionDic,List<float> middleList);
 
-        
     }
 }

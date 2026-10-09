@@ -19,8 +19,8 @@ namespace Zmotion
 
     {
         ParentMotion parentMotion;
-        List<int> iaxis = new List<int>() { 1,3,0};
-        
+        List<int> iaxis = new List<int>() { 1, 3, 0 };
+
         public Form1()
         {
             InitializeComponent();
@@ -32,7 +32,7 @@ namespace Zmotion
             ErrorCodeHelper.GetErrorCodeDicWithFile();
 
         }
-        
+
 
         //连接
         private void uiButton1_Click(object sender, EventArgs e)
@@ -81,25 +81,26 @@ namespace Zmotion
         /// 设置轴参数
         /// </summary>
         /// <returns></returns>
-        private AxisParametersModel GetAxisParameters()   
+        private AxisParametersModel GetAxisParameters()
         {
             AxisParametersModel axisParametersModel = new AxisParametersModel();
             axisParametersModel.units = Convert.ToSingle(TextBox_units.Text);
             axisParametersModel.lspeed = Convert.ToSingle(TextBox_lspeed.Text);
             axisParametersModel.speed = Convert.ToSingle(TextBox_speed.Text);
-            axisParametersModel.accel =Convert.ToSingle(TextBox_accel.Text);
+            axisParametersModel.accel = Convert.ToSingle(TextBox_accel.Text);
             axisParametersModel.decel = Convert.ToSingle(TextBox_decel.Text);
-            axisParametersModel.sramp =Convert.ToSingle(TextBox_sramp.Text);
+            axisParametersModel.sramp = Convert.ToSingle(TextBox_sramp.Text);
             return axisParametersModel;
         }
+        #region 在定时器中轮询轴状态和参数
         //在定时器中执行轴限位状态
         private void timer1_Tick(object sender, EventArgs e)
         {
-              //读取轴IO点限位状态
+            //读取轴IO点限位状态
             foreach (Control item in groupBox1.Controls)
             {
 
-                if(item is PictureBox)
+                if (item is PictureBox)
                 {
                     //解析出轴的IO点
                     string axisIO = item.Name.Split('_')[2];
@@ -120,67 +121,88 @@ namespace Zmotion
                 }
             }
             //读取轴参数
-            for (int i=0; i< iaxis.Count; i++)
+            for (int i = 0; i < iaxis.Count; i++)
             {
                 AppResultHelper<AxisCurrentParameterModel> appResultHelper = parentMotion.GetAxisCurrentParameter(iaxis[i]);
                 if (!appResultHelper.isSuccessful)
-                { 
+                {
                     this.ShowErrorTip(appResultHelper.message);
                 }
                 //获取当前轴参数
                 AxisCurrentParameterModel axisCurrent = appResultHelper.data;
                 //显示轴参数
-                statusStrip1.Items["ts_Location_"+i].Text = axisCurrent.AxisCurrentPosition.ToString();
-                statusStrip1.Items["ts_Speed_"+i].Text = axisCurrent.AxisCurrentSpeed.ToString();
+                statusStrip1.Items["ts_Location_" + i].Text = axisCurrent.AxisCurrentPosition.ToString();
+                statusStrip1.Items["ts_Speed_" + i].Text = axisCurrent.AxisCurrentSpeed.ToString();
                 //TODO:编写控制器连接状态变化
 
             }
-
         }
+        #endregion
+
+        #region 启动轴运动
         //启动轴运动
         private void uiButton3_Click(object sender, EventArgs e)
         {
             //设置轴参数
             AxisParametersModel axisParametersModel = GetAxisParameters();
-            //搜集复选框中选中的轴
-            Dictionary<int , float> axisMotionDic = new Dictionary<int , float>();
-            foreach (Control control in uiGroupBox1.Controls)
+            Dictionary<int, float> axisMotionDic;
+            bool flowControl = GetAxisMotionDic(out axisMotionDic);
+            if (!flowControl)
             {
-                //若不是复选框则跳过，若复选框没有选中则跳过,若复选框标记为空则跳过
-                if(!(control is UICheckBox)|| !(control as UICheckBox).Checked)
-                {
-                    continue;
-                }
-                if( control.Tag == null)
-                {
-                    this.ShowErrorTip("轴号获取失败");
-                }
-                //提起出控件标记出来的轴号和距离存入字典
-                int axisNum = int.Parse(control.Tag.ToString());
-                if(!float.TryParse(uiGroupBox4.Controls["txb_" + axisNum].Text, out float axisDistance))
-                {
-                    this.ShowErrorTip("请输入正确的距离");
-                    return;
-                }
-                //float.TryParse(uiGroupBox4.Controls["txb_" + axisNum].Text, out float axisDistance);
-                axisMotionDic.Add(axisNum, axisDistance);
+                return;
             }
-            
+
             AppResultHelper<bool> appResultHelper;
             //判断是相对运动还是绝对运动
             if (rb_RelativeMotion.Checked)
             {
-                appResultHelper = parentMotion.RelativeMotion(axisParametersModel,axisMotionDic);
+                appResultHelper = parentMotion.RelativeMotion(axisParametersModel, axisMotionDic);
             }
             else
             {
-                appResultHelper = parentMotion.AbsoluteMotion(axisParametersModel,axisMotionDic);
+                appResultHelper = parentMotion.AbsoluteMotion(axisParametersModel, axisMotionDic);
             }
             if (!appResultHelper.isSuccessful)
             {
                 this.ShowErrorTip(appResultHelper.message);
             }
         }
+        #endregion
+
+        /// <summary>
+        /// 获取当前轴的轴号和距离存入字典
+        /// </summary>
+        /// <param name="axisMotionDic">轴号和距离的字典</param>
+        /// <returns>是否成功获取轴号和距离</returns>
+        private bool GetAxisMotionDic(out Dictionary<int, float> axisMotionDic)
+        {
+            //搜集复选框中选中的轴
+            axisMotionDic = new Dictionary<int, float>();
+            foreach (Control control in uiGroupBox1.Controls)
+            {
+                //若不是复选框则跳过，若复选框没有选中则跳过,若复选框标记为空则跳过
+                if (!(control is UICheckBox) || !(control as UICheckBox).Checked)
+                {
+                    continue;
+                }
+                if (control.Tag == null)
+                {
+                    this.ShowErrorTip("轴号获取失败");
+                }
+                //提起出控件标记出来的轴号和距离存入字典
+                int axisNum = int.Parse(control.Tag.ToString());
+                if (!float.TryParse(uiGroupBox4.Controls["txb_" + axisNum].Text, out float axisDistance))
+                {
+                    this.ShowErrorTip("请输入正确的距离");
+                    return false;
+                }
+                //float.TryParse(uiGroupBox4.Controls["txb_" + axisNum].Text, out float axisDistance);
+                axisMotionDic.Add(axisNum, axisDistance);
+            }
+
+            return true;
+        }
+
         //停止轴运动
         private void uiButton4_Click(object sender, EventArgs e)
         {
@@ -225,7 +247,8 @@ namespace Zmotion
                 if (appResultHelper.isSuccessful)
                 {
                     this.ShowSuccessTip("回原点成功");
-                }else
+                }
+                else
                 {
                     this.ShowErrorTip(appResultHelper.message);
                 }
@@ -238,6 +261,68 @@ namespace Zmotion
             {
                 //最终强制停止运动，防止异常导致运动无法停止
                 parentMotion.StopMotion();
+            }
+        }
+        //直线插补
+        private void uiButton5_Click(object sender, EventArgs e)
+        {
+            //获取轴参数
+            AxisParametersModel axisParametersModel = parentMotion.AxisParameters;
+            //获取轴号和距离的字典
+            GetAxisMotionDic(out Dictionary<int, float> axisMotionDic);
+            if (axisMotionDic.Count < 2)
+            {
+                this.ShowErrorTip("直线插补至少需要两个轴");
+                return;
+            }
+            AppResultHelper<bool> appResultHelper = parentMotion.AbsLine(axisParametersModel, axisMotionDic);
+            if (!appResultHelper.isSuccessful)
+            {
+                this.ShowErrorTip(appResultHelper.message);
+            }
+        }
+        //圆弧插补
+        private void uiButton6_Click(object sender, EventArgs e)
+        {
+            //获取轴参数
+            AxisParametersModel axisParametersModel = parentMotion.AxisParameters;
+            //搜集复选框中选中的轴
+            Dictionary<int, float> axisMotionDic = new Dictionary<int, float>();
+            List<float> middleList = new List<float>();
+            foreach (Control control in uiGroupBox1.Controls)
+            {
+                //若不是复选框则跳过，若复选框没有选中则跳过,若复选框标记为空则跳过
+                if (!(control is UICheckBox) || !(control as UICheckBox).Checked)
+                {
+                    continue;
+                }
+                if (control.Tag == null)
+                {
+                    this.ShowErrorTip("轴号获取失败");
+                }
+                //提起出控件标记出来的轴号和距离存入字典
+                int axisNum = int.Parse(control.Tag.ToString());
+                //收集该轴的中间点距离存入集合
+                if (!float.TryParse(uiGroupBox4.Controls["uiTxb_" + axisNum].Text, out float middle))
+                {
+                    this.ShowErrorTip("距离不能为空");
+                }
+                middleList.Add(middle);
+                if (!float.TryParse(uiGroupBox4.Controls["txb_" + axisNum].Text, out float axisDistance))
+                {
+                    this.ShowErrorTip("请输入正确的距离");
+                }
+                axisMotionDic.Add(axisNum, axisDistance);
+            }
+            if (axisMotionDic.Count < 2)
+            {
+                this.ShowErrorTip("圆弧插补至少需要两个轴");
+                return;
+            }
+            AppResultHelper<bool> appResultHelper = parentMotion.AbsCircle(GetAxisParameters(), axisMotionDic, middleList);
+            if (!appResultHelper.isSuccessful)
+            {
+                this.ShowErrorTip(appResultHelper.message);
             }
         }
     }

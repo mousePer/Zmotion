@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Zmotion.help;
 using Zmotion.model;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Zmotion.BaseMotion
 {
@@ -59,7 +60,12 @@ namespace Zmotion.BaseMotion
                 int direction = int.Parse(functionals[1]);
                 try
                 {
-                    SetAxisParameters(axisParametersModel, iaxis);
+                    //设置轴参数
+                    AppResultHelper<bool> resultHelper = SetAxisParameters(axisParametersModel, iaxis);
+                    if (!appResultHelper.isSuccessful)
+                    {
+                        return appResultHelper;
+                    }
                     int result = zmcaux.ZAux_Direct_Single_Vmove(g_handle, iaxis, direction);
                     return AppResultHelper<bool>.ResultValidation(result);
                 }
@@ -186,21 +192,24 @@ namespace Zmotion.BaseMotion
         /// </summary>
         /// <param name="axisParametersModel">轴模型</param>
         /// <param name="iaxis">轴号</param>
-        private void  SetAxisParameters(AxisParametersModel axisParametersModel, int iaxis)
+        private AppResultHelper<bool>  SetAxisParameters(AxisParametersModel axisParametersModel, int iaxis)
         {
-            //设置轴参数
-            //设置脉冲当量（units）                
-            zmcaux.ZAux_Direct_SetUnits(g_handle, iaxis, axisParametersModel.units);
-            //设置轴起始速度，单位为 units/s     
-            zmcaux.ZAux_Direct_SetLspeed(g_handle, iaxis, axisParametersModel.lspeed);  
-            //设置轴速度，单位为 units/s         
-            zmcaux.ZAux_Direct_SetSpeed(g_handle, iaxis, axisParametersModel.speed);      
-            //设置加速度，单位为 units /s       
-            zmcaux.ZAux_Direct_SetAccel(g_handle, iaxis, axisParametersModel.accel);
-            //设置减速度，单位为 units /s
-            zmcaux.ZAux_Direct_SetDecel(g_handle, iaxis, axisParametersModel.decel);
-            //设置 S 曲线设置。0-梯形加减速       
-            zmcaux.ZAux_Direct_SetSramp(g_handle, iaxis, axisParametersModel.sramp);
+            List<int> resultList = new List<int>()
+            {
+                //设置脉冲当量（units）
+                zmcaux.ZAux_Direct_SetUnits(g_handle, iaxis, axisParametersModel.units),
+                //设置轴起始速度，单位为 units/s
+                zmcaux.ZAux_Direct_SetLspeed(g_handle, iaxis, axisParametersModel.lspeed),   
+                //设置轴速度，单位为 units/s
+                zmcaux.ZAux_Direct_SetSpeed(g_handle, iaxis, axisParametersModel.speed),  
+                 //设置加速度，单位为 units /s 
+                zmcaux.ZAux_Direct_SetAccel(g_handle, iaxis, axisParametersModel.accel),  
+                //设置减速度，单位为 units /s
+                zmcaux.ZAux_Direct_SetDecel(g_handle, iaxis, axisParametersModel.decel),  
+                //设置 S 曲线设置。0-梯形加减速   
+                zmcaux.ZAux_Direct_SetSramp(g_handle, iaxis, axisParametersModel.sramp)           
+            };
+            return AppResultHelper<bool>.ResultValidation(resultList);
         }
         /// <summary>
         /// 获取轴IO列表
@@ -316,7 +325,13 @@ namespace Zmotion.BaseMotion
                     return AppResultHelper<bool>.Fail(isMotionResult.message);
                 }
                 //设置轴参数
-                SetAxisParameters(axisParametersModel, iaxis);
+                AppResultHelper<bool> resultHelper = SetAxisParameters(axisParametersModel, iaxis);
+                if (!resultHelper.isSuccessful)
+                {
+                    //所有轴停止运动
+                    StopMotion();
+                    return AppResultHelper<bool>.Fail(resultHelper.message);
+                }
                 //轴相对运动，并将轴的结果添加到列表中
                 resultList.Add(zmcaux.ZAux_Direct_Single_Move(g_handle, iaxis, axisMotionDic[iaxis]));
             }
@@ -346,7 +361,13 @@ namespace Zmotion.BaseMotion
                     return AppResultHelper<bool>.Fail(isMotionResult.message);
                 }
                 //设置轴参数
-                SetAxisParameters(axisParametersModel, iaxis);
+                AppResultHelper<bool> resultHelper = SetAxisParameters(axisParametersModel, iaxis);
+                if (!resultHelper.isSuccessful)
+                {
+                    //所有轴停止运动
+                    StopMotion();
+                    return AppResultHelper<bool>.Fail(resultHelper.message);
+                }
                 //轴相对运动，并将轴的结果添加到列表中
                 resultList.Add(zmcaux.ZAux_Direct_Single_MoveAbs(g_handle, iaxis, axisMotionDic[iaxis]));
             }
@@ -443,7 +464,13 @@ namespace Zmotion.BaseMotion
         /// <exception cref="NotImplementedException"></exception>
         private int StartBackOrigin(AxisParametersModel axisParametersModel,int iaxis)
         {
-            SetAxisParameters(axisParametersModel, iaxis);
+            AppResultHelper<bool> resultHelper = SetAxisParameters(axisParametersModel, iaxis);
+            if (!resultHelper.isSuccessful)
+            {
+                //所有轴停止运动
+                StopMotion();
+                return int.Parse(resultHelper.message.Split(":")[1]);
+            }
             zmcaux.ZAux_Direct_SetCreep(g_handle, iaxis, 10);
             return zmcaux.ZAux_Direct_Single_Datum(g_handle, iaxis, 3);
         }
@@ -454,7 +481,6 @@ namespace Zmotion.BaseMotion
         /// <param name="axisList">轴号列表</param>
         /// <param name="timeOut">超时时间</param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         private async Task<AppResultHelper<bool>> WaitAllStopAsysc(List<int> axisList, int timeOut)
         {
             DateTime startTime = DateTime.Now;
@@ -485,6 +511,70 @@ namespace Zmotion.BaseMotion
                 //等待100毫秒
                 await Task.Delay(100);
             }
+        }
+        /// <summary>
+        /// 直线插补
+        /// </summary>
+        /// <param name="axisParametersModel">轴参数模型</param>
+        /// <param name="axisMotionDic">轴号与相应距离的字典</param>
+        /// <returns></returns>
+        public override AppResultHelper<bool> AbsLine(AxisParametersModel axisParametersModel, Dictionary<int, float> axisMotionDic)
+        {
+            if (!isConnect)
+            {
+                return AppResultHelper<bool>.Fail("请先连接网口");
+            }
+            int[] axisArray = axisMotionDic.Keys.ToArray();
+            
+            //设置轴参数 （插补运动只需要设置第一个主轴的参数）
+            AppResultHelper<bool> resultHelper = SetAxisParameters(axisParametersModel, axisArray[0]);
+            if (!resultHelper.isSuccessful)
+            {
+                //所有轴停止运动
+                StopMotion();
+                return AppResultHelper<bool>.Fail(resultHelper.message);
+            }
+            List<int> resultList = new List<int>()
+            {
+                //设置运动轴列表
+                zmcaux.ZAux_Direct_Base(g_handle, axisArray.Length, axisArray),
+                //进行直线插补
+                zmcaux.ZAux_Direct_MoveAbs(g_handle, axisArray.Length, axisArray,axisMotionDic.Values.ToArray())
+            };
+            return AppResultHelper<bool>.ResultValidation(resultList);
+        }
+        /// <summary>
+        /// 圆弧插补
+        /// </summary>
+        /// <param name="axisParametersModel">轴参数模型</param>
+        /// <param name="axisMotionDic">轴号与相应距离的字典</param>
+        /// <param name="middleList">中间点坐标</param>
+        /// <returns></returns>
+        public override AppResultHelper<bool> AbsCircle(AxisParametersModel axisParametersModel, Dictionary<int, float> axisMotionDic, List<float> middleList)
+        {
+            if (!isConnect)
+            {
+                return AppResultHelper<bool>.Fail("请先连接网口");
+            }
+            int[] axisArray = axisMotionDic.Keys.ToArray();
+            float[] distanceArray = axisMotionDic.Values.ToArray();
+
+            //设置轴参数 （插补运动只需要设置第一个主轴的参数）
+            AppResultHelper<bool> resultHelper = SetAxisParameters(axisParametersModel, axisArray[0]);
+            if (!resultHelper.isSuccessful)
+            {
+                //所有轴停止运动
+                StopMotion();
+                return AppResultHelper<bool>.Fail(resultHelper.message);
+            }
+            List<int> resultList = new List<int>()
+            {
+                //设置运动轴列表
+                zmcaux.ZAux_Direct_Base(g_handle, axisArray.Length, axisArray),
+                //进行圆弧插补  句柄 中间点坐标   终点坐标
+                zmcaux.ZAux_Direct_MoveCirc2Abs(g_handle,axisArray.Length,axisArray,middleList[0],middleList[1],distanceArray[0],distanceArray[1])
+            };
+            return AppResultHelper<bool>.ResultValidation(resultList);
         }
     }
 }
