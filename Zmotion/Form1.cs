@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Zmotion.BaseMotion;
 using Zmotion.help;
 using Zmotion.model;
+using LogProject;
 
 namespace Zmotion
 {
@@ -41,9 +42,11 @@ namespace Zmotion
             if (!appResultHelper.isSuccessful)
             {
                 this.ShowErrorTip(appResultHelper.message);
+                LogHelper.WriteLog(appResultHelper.message);
                 return;
             }
             this.ShowSuccessTip(appResultHelper.message);
+            LogHelper.WriteLog(appResultHelper.message);
             //成功修改控件为绿色
             toolStripStatusLabel2.BackColor = Color.Green;
             //连接成功开启定时器使能
@@ -55,6 +58,7 @@ namespace Zmotion
                 if (!appResultHelper.isSuccessful)
                 {
                     this.ShowErrorTip(appResultHelper.message);
+                    LogHelper.WriteLog(appResultHelper.message);
                     return;
                 }
             }
@@ -68,6 +72,7 @@ namespace Zmotion
             if (!appResultHelper.isSuccessful)
             {
                 this.ShowErrorTip(appResultHelper.message);
+                LogServer.Instance.WriteLog(appResultHelper.message);
                 return;
             }
         }
@@ -108,6 +113,7 @@ namespace Zmotion
                     if (!appResultHelper.isSuccessful)
                     {
                         this.ShowErrorTip(appResultHelper.message);
+                        LogHelper.WriteLog(appResultHelper.message);
                     }
                     //由于电平取反，所以这里颜色显示反转
                     if (appResultHelper.data == 0)
@@ -127,6 +133,7 @@ namespace Zmotion
                 if (!appResultHelper.isSuccessful)
                 {
                     this.ShowErrorTip(appResultHelper.message);
+                    LogHelper.WriteLog(appResultHelper.message);
                 }
                 //获取当前轴参数
                 AxisCurrentParameterModel axisCurrent = appResultHelper.data;
@@ -149,9 +156,9 @@ namespace Zmotion
             bool flowControl = GetAxisMotionDic(out axisMotionDic);
             if (!flowControl)
             {
+                LogHelper.WriteLog("轴运动参数获取错误");
                 return;
             }
-
             AppResultHelper<bool> appResultHelper;
             //判断是相对运动还是绝对运动
             if (rb_RelativeMotion.Checked)
@@ -164,6 +171,7 @@ namespace Zmotion
             }
             if (!appResultHelper.isSuccessful)
             {
+                LogHelper.WriteLog(appResultHelper.message);
                 this.ShowErrorTip(appResultHelper.message);
             }
         }
@@ -209,6 +217,7 @@ namespace Zmotion
             AppResultHelper<bool> appResultHelper = parentMotion.StopMotion();
             if (!appResultHelper.isSuccessful)
             {
+                LogHelper.WriteLog(appResultHelper.message);
                 this.ShowErrorTip(appResultHelper.message);
             }
         }
@@ -224,6 +233,7 @@ namespace Zmotion
         //一键回原点
         private async void uiButton2_Click(object sender, EventArgs e)
         {
+            uiButton2.Enabled = false;
             //搜集复选框中选中的轴(收集需要回原点的轴)
             Dictionary<int, float> axisMotionDic = new Dictionary<int, float>();
             foreach (Control control in uiGroupBox1.Controls)
@@ -246,28 +256,32 @@ namespace Zmotion
                 AppResultHelper<bool> appResultHelper = await parentMotion.BackOriginALLAsync(GetAxisParameters(), axisMotionDic, 600000);
                 if (appResultHelper.isSuccessful)
                 {
+                    LogHelper.WriteLog("回原点成功");
                     this.ShowSuccessTip("回原点成功");
                 }
                 else
                 {
+                    LogHelper.WriteLog(appResultHelper.message);
                     this.ShowErrorTip(appResultHelper.message);
                 }
             }
             catch (Exception ex)
             {
+                LogHelper.WriteLog(ex.Message);
                 this.ShowErrorTip(ex.Message);
             }
             finally
             {
                 //最终强制停止运动，防止异常导致运动无法停止
                 parentMotion.StopMotion();
+                uiButton2.Enabled = true;
             }
         }
         //直线插补
         private void uiButton5_Click(object sender, EventArgs e)
         {
             //获取轴参数
-            AxisParametersModel axisParametersModel = parentMotion.AxisParameters;
+            AxisParametersModel axisParametersModel = GetAxisParameters();
             //获取轴号和距离的字典
             GetAxisMotionDic(out Dictionary<int, float> axisMotionDic);
             if (axisMotionDic.Count < 2)
@@ -278,6 +292,7 @@ namespace Zmotion
             AppResultHelper<bool> appResultHelper = parentMotion.AbsLine(axisParametersModel, axisMotionDic);
             if (!appResultHelper.isSuccessful)
             {
+                LogHelper.WriteLog(appResultHelper.message);
                 this.ShowErrorTip(appResultHelper.message);
             }
         }
@@ -285,7 +300,7 @@ namespace Zmotion
         private void uiButton6_Click(object sender, EventArgs e)
         {
             //获取轴参数
-            AxisParametersModel axisParametersModel = parentMotion.AxisParameters;
+            AxisParametersModel axisParametersModel = GetAxisParameters();
             //搜集复选框中选中的轴
             Dictionary<int, float> axisMotionDic = new Dictionary<int, float>();
             List<float> middleList = new List<float>();
@@ -322,6 +337,7 @@ namespace Zmotion
             AppResultHelper<bool> appResultHelper = parentMotion.AbsCircle(GetAxisParameters(), axisMotionDic, middleList);
             if (!appResultHelper.isSuccessful)
             {
+                LogHelper.WriteLog(appResultHelper.message);
                 this.ShowErrorTip(appResultHelper.message);
             }
         }

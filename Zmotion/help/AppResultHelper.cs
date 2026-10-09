@@ -79,7 +79,7 @@ namespace Zmotion.help
             return new AppResultHelper<T>()
             {
                 isSuccessful = false,
-                message = ErrorCodeHelper.ErrorCodeDic[errorCode]+"。错误码:"+ errorCode
+                message = ErrorCodeHelper.ErrorCodeDic[errorCode]+"。正运动错误码:"+ errorCode
             };
         }
         /// <summary>
@@ -93,7 +93,7 @@ namespace Zmotion.help
             return new AppResultHelper<T>()
             {
                 isSuccessful = false,
-                message = ErrorCodeHelper.ErrorCodeDic[errorCode]+"。错误码:" + errorCode,
+                message = ErrorCodeHelper.ErrorCodeDic[errorCode]+"。正运动错误码:" + errorCode,
                 data = data
             };
         }

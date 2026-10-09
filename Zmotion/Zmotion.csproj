@@ -67,6 +67,7 @@
     <Compile Include="help\AppResultHelper.cs" />
     <Compile Include="help\AxisConfig.cs" />
     <Compile Include="help\ErrorCodeHelper.cs" />
+    <Compile Include="help\LogHelper.cs" />
     <Compile Include="model\AxisCurrentParameterModel.cs" />
     <Compile Include="model\AxisParametersModel.cs" />
     <Compile Include="Program.cs" />
@@ -99,7 +100,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\LogProject\LogProject.csproj">
+      <Project>{b2a88348-8387-49aa-a8d2-56037f7b4dd9}</Project>
+      <Name>LogProject</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\_向下箭头粗小.png" />
   </ItemGroup>

@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace LogProject
 {
-    public class Class1
+    public class LogInfo
     {
+        //日志写入路径
+        public string  Path { get; set; }
+
+        //日志写入内容
+        public string Message { get; set; }
     }
 }
