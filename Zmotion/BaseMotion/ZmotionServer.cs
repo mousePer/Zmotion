@@ -186,15 +186,15 @@ namespace Zmotion.BaseMotion
         /// </summary>
         /// <param name="axisParametersModel">轴模型</param>
         /// <param name="iaxis">轴号</param>
-        private void SetAxisParameters(AxisParametersModel axisParametersModel, int iaxis)
+        private void  SetAxisParameters(AxisParametersModel axisParametersModel, int iaxis)
         {
             //设置轴参数
             //设置脉冲当量（units）                
             zmcaux.ZAux_Direct_SetUnits(g_handle, iaxis, axisParametersModel.units);
             //设置轴起始速度，单位为 units/s     
-            zmcaux.ZAux_Direct_SetLspeed(g_handle, iaxis, axisParametersModel.lspeed);
+            zmcaux.ZAux_Direct_SetLspeed(g_handle, iaxis, axisParametersModel.lspeed);  
             //设置轴速度，单位为 units/s         
-            zmcaux.ZAux_Direct_SetSpeed(g_handle, iaxis, axisParametersModel.speed);
+            zmcaux.ZAux_Direct_SetSpeed(g_handle, iaxis, axisParametersModel.speed);      
             //设置加速度，单位为 units /s       
             zmcaux.ZAux_Direct_SetAccel(g_handle, iaxis, axisParametersModel.accel);
             //设置减速度，单位为 units /s

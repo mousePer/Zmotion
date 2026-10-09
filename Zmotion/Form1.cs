@@ -95,7 +95,7 @@ namespace Zmotion
         //在定时器中执行轴限位状态
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //读取轴IO点限位状态
+              //读取轴IO点限位状态
             foreach (Control item in groupBox1.Controls)
             {
 
@@ -165,6 +165,7 @@ namespace Zmotion
                 //float.TryParse(uiGroupBox4.Controls["txb_" + axisNum].Text, out float axisDistance);
                 axisMotionDic.Add(axisNum, axisDistance);
             }
+            
             AppResultHelper<bool> appResultHelper;
             //判断是相对运动还是绝对运动
             if (rb_RelativeMotion.Checked)
